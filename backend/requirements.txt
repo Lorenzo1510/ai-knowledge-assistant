@@ -1,0 +1,28 @@
+# Backend core
+fastapi
+uvicorn[standard]
+
+# AI & LLM
+openai
+langchain
+sentence-transformers
+faiss-cpu
+
+# Document parsing
+pdfplumber
+PyMuPDF
+
+# Search & DB
+elasticsearch
+chromadb
+
+# Utilities
+pydantic
+python-multipart
+requests
+
+# UI
+streamlit
+
+# Deployment & logs
+python-dotenv
