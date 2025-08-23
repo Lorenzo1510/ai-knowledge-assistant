@@ -3,6 +3,7 @@ import os
 from fastapi import APIRouter, UploadFile, File
 
 from app.utils.pdf_parser import extract_text_from_pdf
+from app.services.rag_service import index_document
 
 
 router = APIRouter()
@@ -17,5 +18,6 @@ async def upload_pdf(file: UploadFile = File(...)):
         f.write(content)
 
     text = extract_text_from_pdf(f"{UPLOAD_DIR}/{file.filename}")
-    # TODO: indicizza
+    index_document(text, file.filename)
+    
     return {"message": f"File '{file.filename}' uploaded successfully", "text": text}
