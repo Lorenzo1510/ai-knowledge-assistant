@@ -1,25 +1,15 @@
 import os
-from langchain.llms import HuggingFaceHub
-from langchain.prompts import PromptTemplate
-from langchain.llms import HuggingFaceEndpoint
 
-hg_api_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
+from utils.llm_class import LLMPredictor
 
-def llm_predict(context: str, question: str) -> str:
-    template = """
-    Rispondi alla domanda in base al seguente contesto:
-    {context}
 
-    Domanda: {question}
+def llm_predict(context: str, question: str, 
+               max_tokens: int = 512, 
+               temperature: float = 0.7) -> str:
     """
-    prompt = PromptTemplate(template=template, input_variables=["context", "question"])
-    final_prompt = prompt.format(context=context, question=question)
-
-    llm = HuggingFaceEndpoint(
-        endpoint_url="https://api-inference.huggingface.co/models/google/flan-t5-large",
-        huggingfacehub_api_token=hg_api_token,
-        temperature=0.7,
-        max_length=512
-    )
-    
-    return llm.predict(final_prompt)
+    Funzione standalone per predizioni LLM
+    Mantiene la compatibilità con il codice esistente
+    """
+    # Crea un'istanza del predictor
+    predictor = LLMPredictor()
+    return predictor.llm_predict(context, question, max_tokens, temperature)
