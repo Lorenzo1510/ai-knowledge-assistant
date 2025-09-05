@@ -23,6 +23,7 @@ def index_document(text: str, doc_id: str):
 def query_vectorstore(query: str, k: int = 3):
     db = get_vectorstore()
     results = db.similarity_search(query, k=k)
-    relevant_context = results[0].page_content if results else ""
-    answer = llm_predict(relevant_context, query)
-    return answer
+    if not results:
+        return "Nessuna informazione trovata nei documenti caricati."
+    context = "\n".join([doc.page_content for doc in results])
+    return llm_predict(context, query)

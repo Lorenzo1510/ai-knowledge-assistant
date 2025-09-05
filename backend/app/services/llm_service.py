@@ -1,6 +1,6 @@
 import os
 
-from utils.llm_class import LLMPredictor
+from app.utils.llm_class import LLMPredictor
 
 
 def llm_predict(context: str, question: str, 

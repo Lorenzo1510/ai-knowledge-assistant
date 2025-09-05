@@ -21,3 +21,10 @@ async def upload_pdf(file: UploadFile = File(...)):
     index_document(text, file.filename)
     
     return {"message": f"File '{file.filename}' uploaded successfully", "text": text}
+
+
+@router.post("/ask/")
+async def ask_question(question: str):
+    from app.services.rag_service import query_vectorstore
+    answer = query_vectorstore(question)
+    return {"question": question, "answer": answer}
